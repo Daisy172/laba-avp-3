@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <title>List App</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/materialize.min.css}" />
+        <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+        <script th:src="@{/js/jquery.min.js}"></script>
+        <script th:src="@{/js/materialize.min.js}"></script>
+        <script th:src="@{/js/index.js}"></script>
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo right"></a>
+                <ul id="nav-mobile" class="left">
+                    <li>
+                        <span>Current user is: </span>
+                        <span th:text="${userName}"></span>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="card center" id="upload-error" style="display: none">
+            <div style="padding: 20px">
+                <div>File getting error.</div>
+                <br>
+                <div class="btn btn-large center" onclick="window.location.reload()">Reload</div>
+            </div>
+        </div>
+        <div class="card center" id="no-files" style="display: none">
+            <div style="padding: 20px">
+                <div>Files list are empty</div>
+                <br>
+                <div class="btn btn-large center" onclick="addFile()">Add file</div>
+            </div>
+        </div>
+        <div id="upload-modal" class="modal bottom-sheet">
+            <div class="modal-content">
+                <h6>Select file to upload</h6>
+                <div class="file-field input-field">
+                    <div class="btn">
+                        <span>File</span>
+                        <input type="file" id="selectedFile">
+                    </div>
+                    <div class="file-path-wrapper">
+                        <input class="file-path validate" id="upload-m" type="text">
+                        <label for="upload-m">Select a file...</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a style="cursor: pointer" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+                <a style="cursor: pointer" onclick="startUploading($('#upload-modal'), this, selectedFile.files)" id="startUpload" class="waves-effect waves-green btn-flat">Upload</a>
+            </div>
+        </div>
+        <div class="card center" id="filesDiv" style="display: none">
+            <table class="centered striped">
+                <thead>
+                    <tr>
+                        <th>File ID</th>
+                        <th>File Name</th>
+                        <th>Upload Date</th>
+                        <th>Owner ID</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="filesList">
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <div id="fileLoading" class="center">
+                <div class="preloader-wrapper big active">
+                    <div class="spinner-layer spinner-blue">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div><div class="gap-patch">
+                        <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                    </div>
+
+                    <div class="spinner-layer spinner-red">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div><div class="gap-patch">
+                        <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                    </div>
+
+                    <div class="spinner-layer spinner-yellow">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div><div class="gap-patch">
+                        <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                    </div>
+
+                    <div class="spinner-layer spinner-green">
+                        <div class="circle-clipper left">
+                            <div class="circle"></div>
+                        </div><div class="gap-patch">
+                        <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="fixed-action-btn">
+            <a onclick="addFile()" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+        </div>
+    </body>
+</html>

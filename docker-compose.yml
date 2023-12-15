@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  java:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    tty: true
+    container_name: backend
+    restart: no
+    links:
+      - mysql
+    networks:
+      - default
+    ports:
+      - '8080:8080'
+    volumes:
+      - './:/app'
+  mysql:
+    image: mysql:5.6.51
+    volumes:
+      - database:/var/lib/mysql
+      - ./config/mysql/:/etc/mysql/mysql.conf.d/
+    ports:
+      - '3306:3306'
+    networks:
+      - default
+    environment:
+      - MYSQL_DATABASE=files
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  database: { }
